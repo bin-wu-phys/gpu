@@ -15,4 +15,6 @@ HostDevice.o: HostDevice.cu MyDevice.h
 
 MyDevice.o: MyDevice.cu MyDevice.h
 	${NVCC} ${CUFLAGS} MyDevice.o MyDevice.cu
-
+	
+clean:
+	rm -f *.o Main *~
