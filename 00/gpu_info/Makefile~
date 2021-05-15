@@ -1,0 +1,6 @@
+CXX = g++
+NVCC = nvcc
+CUFLAGS = -dc -o
+LFLAGS = -rdc=true -o
+
+GPU.o: GPU.cu GPU.h
