@@ -3,9 +3,9 @@ NVCC = nvcc
 CUFLAGS = -dc -o
 LFLAGS = -rdc=true -o
 OBJS = Main.o HostDevice.o MyDevice.o 
-EXEC = Main
+EXEC = global
 
-${EXEC}: ${OBJS}
+${EXECy}: ${OBJS}
 	${NVCC} ${LFLAGS} Main ${OBJS}
 
 Main.o: Main.cpp HostDevice.h
