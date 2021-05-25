@@ -6,8 +6,7 @@ using namespace std;
 __device__ fThread::fThread(float* fIn_d, float* fOut_d, float t, float dt){
   _fIn_d = fIn_d; _fOut_d = fOut_d; _t = t; _dt = dt;
   _idx = getIdx(); _fNext = _fIn_d[_idx];
-  printf("%d\n", _idx);
-  
+  printf("%d ", _idx);
 }
 
 __device__ int fThread::getIdx(){

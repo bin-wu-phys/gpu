@@ -15,7 +15,7 @@ using namespace std;
 
 __global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt){
   fThread fi = fThread(fIn_d, fOut_d, t, dt);
-  fi.nextTime();
+  //fi.nextTime();
   fi.update();
 }
 
@@ -34,10 +34,12 @@ bulk::~bulk(){
 }
 
 void bulk::nextTime(){
-  fGrid<<<_ntot,1>>>(_fIn_d, _fOut_d, _t, _dt);
+  fGrid<<<1, _ntot>>>(_fIn_d, _fOut_d, _t, _dt);
   cudaDeviceSynchronize();
 }
 
 void bulk::output(float* f_h){
+  cout << "In output: " << endl;
+  cout << f_h[5] << endl;
   CUDA_STATUS(cudaMemcpy(f_h, _fOut_d, _nbytes, cudaMemcpyDeviceToHost));
 }
