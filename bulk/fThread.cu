@@ -5,7 +5,8 @@ using namespace std;
 
 __device__ fThread::fThread(float* fIn_d, float* fOut_d, float t, float dt){
   _fIn_d = fIn_d; _fOut_d = fOut_d; _t = t; _dt = dt;
-  _idx = getIdx(); _fNext = _fIn_d[_idx];
+  _idx = getIdx();
+  _fNext = _fIn_d[_idx];
   printf("%d ", _idx);
 }
 
@@ -22,7 +23,11 @@ __device__ float fThread::getC(){
 }
 
 __device__ void fThread::nextTime(){
-  _fNext = _fNext + _dt* getC();
+  _fNext = _fIn_d[_idx] + _dt* getC();
 }
 
+__device__
+void fThread::print(){
+  printf("Hello World from [%d]th thread with fIn = %f\n", _idx, _fIn_d[_idx]);
+}
 

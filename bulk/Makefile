@@ -19,5 +19,11 @@ ${BULK}.o: ${BULK}.cu ${BULK}.cuh
 ${THREAD}.o: ${THREAD}.cu ${THREAD}.cuh
 	${NVCC} ${CUFLAGS} ${THREAD}.o ${THREAD}.cu
 
+test.o: test.cu fThread.cuh
+	${NVCC} ${CUFLAGS} test.o test.cu
+
+test: test.o fThread.o
+	${NVCC} ${LFLAGS} test test.o fThread.o
+
 clean:
 	rm -f *.o ${EXEC} *~

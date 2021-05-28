@@ -14,5 +14,6 @@ public:
   __device__ void update();//replace _f at _idx
   __device__ float getC();//calculate the kernel at i
   __device__ void nextTime();//calculate _f[_idx] at _t + _dt
+  __device__ void print();
   
 };
