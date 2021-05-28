@@ -15,7 +15,7 @@ using namespace std;
 
 __global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt){
   fThread fi = fThread(fIn_d, fOut_d, t, dt);
-  fi.print();
+  //fi.print();
   fi.nextTime();
   fi.update();
 }
@@ -24,7 +24,7 @@ __global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt){
 bulk::bulk(float* f0_h, float t0, float dt, int ntot){
   _ntot = ntot; _t = t0; _dt = dt;
   _nbytes = _ntot*sizeof(int);
-  cout << _ntot << ", " <<_nbytes << endl;
+  //cout << _ntot << ", " <<_nbytes << endl;
   CUDA_STATUS(cudaMalloc((void**) &_fIn_d, _nbytes));
   CUDA_STATUS(cudaMalloc((void**) &_fOut_d, _nbytes));
   CUDA_STATUS(cudaMemcpy(_fIn_d, f0_h, _nbytes, cudaMemcpyHostToDevice));
@@ -36,7 +36,7 @@ bulk::~bulk(){
 }
 
 void bulk::nextTime(){
-  fGrid<<<1, _ntot>>>(_fIn_d, _fOut_d, _t, _dt);
+  fGrid<<<_ntot, 1>>>(_fIn_d, _fOut_d, _t, _dt);
   cudaError_t err = cudaGetLastError();
   if (err != cudaSuccess){
     printf("Kernel call in bulk::nextTime:\n");
