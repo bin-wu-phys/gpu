@@ -13,9 +13,10 @@ using namespace std;
   }\
 }
 
-__global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt){
+__global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt, int ntot){
   fThread fi = fThread(fIn_d, fOut_d, t, dt);
   //fi.print();
+  fi.setntot(ntot);
   fi.nextTime();
   fi.update();
 }
@@ -36,7 +37,7 @@ bulk::~bulk(){
 }
 
 void bulk::nextTime(){
-  fGrid<<<_ntot, 1>>>(_fIn_d, _fOut_d, _t, _dt);
+  fGrid<<<_ntot, 1>>>(_fIn_d, _fOut_d, _t, _dt, _ntot);
   cudaError_t err = cudaGetLastError();
   if (err != cudaSuccess){
     printf("Kernel call in bulk::nextTime:\n");

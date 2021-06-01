@@ -12,12 +12,11 @@ fCPU::~fCPU()
 
 void fCPU::calcKernel(){
   for(int i=0;i<_ntot;i++){
-    _C_h[i] = _fIn_h[i];
-    /*_C_h[i] = 0.0;
+    //_C_h[i] = _fIn_h[i];
+    _C_h[i] = 0.0;
     for(int j=0;j<_ntot;j++){
       _C_h[i]+=_fIn_h[j]*_fIn_h[j]*_fIn_h[j]*_fIn_h[j];
     }
-    */
   }
 }
 

@@ -14,28 +14,31 @@ int main(){
     f0[i] = (float) i;
   }
 
-  CompTime stopwatch;
 
+  cout << "GPU:" << endl;
   bulk bk(f0, t0, dt, N);
+
+  CompTime stopwatch;
 
   //cout << "Entering nextTime:\n";
   bk.nextTime();
+
+  cout << "Computation time: " << stopwatch.getTime() << " s." << endl;
   
   //cout << "Entering output:\n";
   bk.output(f);
   
   cout << "Computation time: " << stopwatch.getTime() << " s." << endl;
   
-  cout << "GPU:" << endl;
   for(int i=0;i<5;i++)
     cout << i << ", " << f[i] << endl;
 
+  cout << "\nCPU:" << endl;
   stopwatch.reset();
   fCPU cpu(f0, fOut_h, t0, dt, N);
   cpu.nextTime();
   cout << "Computation time: " << stopwatch.getTime() << " s." << endl;
   
-  cout << "CPU:" << endl;
   for(int i=0;i<5;i++)
     cout << i << ", " << fOut_h[i] << endl;
   

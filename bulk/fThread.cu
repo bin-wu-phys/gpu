@@ -19,7 +19,10 @@ __device__ void fThread::update(){
 }
 
 __device__ float fThread::getC(){
-  return _fIn_d[_idx];
+  float c = 0.0;
+  for(int i=0;i<_ntot;i++)
+    c += _fIn_d[i]*_fIn_d[i]*_fIn_d[i]*_fIn_d[i];
+  return c;
 }
 
 __device__ void fThread::nextTime(){
@@ -31,3 +34,6 @@ void fThread::print(){
   printf("Hello World from [%d]th thread with fIn = %f\n", _idx, _fIn_d[_idx]);
 }
 
+__device__ void fThread::setntot(int ntot){
+  _ntot = ntot;
+}
