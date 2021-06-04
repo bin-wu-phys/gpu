@@ -1,0 +1,10 @@
+Device Number: 0
+  Device name: NVIDIA GeForce GTX 1050 Ti
+  Compute capability: 6.1
+  (SMs, Cuda cores/SM, Cuda cores): (6, 128, 768)
+  Warp Size: 32
+  Maximum size of a block: (1024, 1024, 64)
+  Maximum size of a grid: (2147483647, 65535, 65535)
+  Shared memory available per multiprocess: 96 kb
+  Total memory: 3 Gb
+  Peak Memory Bandwidth 112.128 Gb/s

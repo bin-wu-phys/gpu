@@ -50,12 +50,15 @@ void GPU::info(){
     int cs = CoresPerSM(prop.major, prop.minor);
     cout << "  (SMs, Cuda cores/SM, Cuda cores): (" <<  prop.multiProcessorCount;
     cout << ", " << cs << ", " << cs* prop.multiProcessorCount << ")" << endl;
+    cout << "  Maximum number of threads per block: " << prop.maxThreadsPerBlock << endl;
     cout << "  Warp Size: " << prop.warpSize << endl;
     cout << "  Maximum size of a block: (" << prop.maxThreadsDim[0] << ", ";
     cout << prop.maxThreadsDim[1] << ", " << prop.maxThreadsDim[2] << ")" << endl;
     cout << "  Maximum size of a grid: (" << prop.maxGridSize[0] << ", ";
     cout << prop.maxGridSize[1] << ", " << prop.maxGridSize[2] << ")" << endl;
-    cout << "  Shared memory available per multiprocess: " << prop.sharedMemPerMultiprocessor/1024 << " kb" << endl;
+    cout << "  Shared memory available per multiprocess: " << prop.sharedMemPerMultiprocessor/1024.0 << " kb" << endl;
+    cout << "  Shared memory available per block: " << prop.sharedMemPerBlock/1024.0 << " kb" << endl;
+    cout << "  Total number of registers available per block: " << prop.regsPerBlock << endl;
     cout << "  Total memory: " << prop.totalGlobalMem/1073741824 << " Gb" << endl;
     cout << "  Peak Memory Bandwidth " << 2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6 << " Gb/s" << endl;
   }
