@@ -3,3 +3,6 @@
 
 # No backups
 *.*~
+
+# emacs tmp
+.#Makefile
