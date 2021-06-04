@@ -61,5 +61,10 @@ void GPU::info(){
     cout << "  Total number of registers available per block: " << prop.regsPerBlock << endl;
     cout << "  Total memory: " << prop.totalGlobalMem/1073741824 << " Gb" << endl;
     cout << "  Peak Memory Bandwidth " << 2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6 << " Gb/s" << endl;
+    cout << "\nCUDA:\n" << endl;
+    int dv, rv;
+    cudaDriverGetVersion(&dv);
+    cudaRuntimeGetVersion(&rv);
+    cout << "   CUDA Driver Version: " << dv/1000 << ", " << (dv%100/10) << endl;   cout << "   CUDA Runtime Version: " << rv/1000 << ", " << (rv%100/10) << endl;
   }
 }
