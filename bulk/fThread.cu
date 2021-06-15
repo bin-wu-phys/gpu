@@ -22,7 +22,7 @@ __device__ float fThread::getC(){
   float c = 0.0;
   for(int i=0;i<_ntot;i++)
     c += _fIn_d[i]*_fIn_d[i]*_fIn_d[i]*_fIn_d[i];
-  return c;
+  return c*_idx;
 }
 
 __device__ void fThread::nextTime(){

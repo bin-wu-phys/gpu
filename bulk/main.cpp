@@ -32,6 +32,8 @@ int main(){
   
   for(int i=0;i<5;i++)
     cout << i << ", " << f[i] << endl;
+  for(int i=N-5;i<N;i++)
+    cout << i << ", " << f[i] << endl;
 
   cout << "\nCPU:" << endl;
   stopwatch.reset();
@@ -40,6 +42,8 @@ int main(){
   cout << "Computation time: " << stopwatch.getTime() << " s." << endl;
   
   for(int i=0;i<5;i++)
+    cout << i << ", " << fOut_h[i] << endl;
+  for(int i=N-5;i<N;i++)
     cout << i << ", " << fOut_h[i] << endl;
   
   return 0;

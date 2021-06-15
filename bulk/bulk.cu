@@ -37,7 +37,8 @@ bulk::~bulk(){
 }
 
 void bulk::nextTime(){
-  fGrid<<<_ntot, 1>>>(_fIn_d, _fOut_d, _t, _dt, _ntot);
+  int nt = 32*4;
+  fGrid<<<(_ntot+nt-1)/nt, nt>>>(_fIn_d, _fOut_d, _t, _dt, _ntot);
   cudaError_t err = cudaGetLastError();
   if (err != cudaSuccess){
     printf("Kernel call in bulk::nextTime:\n");

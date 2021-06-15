@@ -17,6 +17,7 @@ void fCPU::calcKernel(){
     for(int j=0;j<_ntot;j++){
       _C_h[i]+=_fIn_h[j]*_fIn_h[j]*_fIn_h[j]*_fIn_h[j];
     }
+    _C_h[i]*=i;
   }
 }
 
