@@ -11,3 +11,26 @@ Device Number: 0
   Total number of registers available per block: 65536
   Total memory: 10 Gb
   Peak Memory Bandwidth 484.44 Gb/s
+Device Number: 0
+  Device name: GeForce GTX 1080 Ti
+  Compute capability: 6.1
+  (SMs, Cuda cores/SM, Cuda cores): (28, 128, 3584)
+
+  Warp Size: 32
+  Maximum number of threads per block: 1024
+  Maximum size of a block: (1024, 1024, 64)
+  Maximum size of a grid: (2147483647, 65535, 65535)
+  Maximum number of threads per SM: 2048
+  Maximum number of warps per SM: 64
+
+  Shared memory available per multiprocess: 96 kb
+  Shared memory available per block: 48 kb
+  Total number of registers available per block: 65536
+  Total number of registers available per SM: 65536
+  Total memory: 10 Gb
+  Peak Memory Bandwidth 484.44 Gb/s
+
+CUDA:
+
+   CUDA Driver Version: 11, 2
+   CUDA Runtime Version: 11, 2
