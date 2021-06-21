@@ -44,6 +44,9 @@ void GPU::info(){
   for (int i = 0; i < nDevices; i++) {
     cudaDeviceProp prop;
     cudaGetDeviceProperties(&prop, i);
+
+    cudaSharedMemConfig pConfig;
+    cudaDeviceGetSharedMemConfig (&pConfig );
     cout << "Device Number: " <<  i << endl;
     cout << "  Device name: " << prop.name << endl;
     cout << "  Compute capability: " << prop.major << "." << prop.minor << endl;
@@ -62,6 +65,22 @@ void GPU::info(){
     
     cout << "  Shared memory available per multiprocess: " << prop.sharedMemPerMultiprocessor/1024.0 << " kb" << endl;
     cout << "  Shared memory available per block: " << prop.sharedMemPerBlock/1024.0 << " kb" << endl;
+    cout << "  Shared memory bank width: ";
+    switch(pConfig){
+    case 0:
+      cout << "default\n" << endl;
+      break;
+    case 1:
+      cout << "4 Byte\n" << endl;
+      break;
+    case 2:
+      cout << "8 Byte\n" << endl;
+      break;
+    default:
+      cout << "Unknown\n" << endl;
+      break;
+    }
+
     cout << "  Total number of registers available per block: " << prop.regsPerBlock << endl;
     cout << "  Total number of registers available per SM: " << prop.regsPerMultiprocessor << endl;
     cout << "  Total memory: " << prop.totalGlobalMem/1073741824 << " Gb" << endl;
