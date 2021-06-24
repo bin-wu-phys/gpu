@@ -4,14 +4,7 @@ using namespace std;
 
 #include "bulk.cuh"
 #include "fThread.cuh"
-
-#define CUDA_STATUS(value){\
-  cudaError_t _m_cudaStat = value;\
-  if ( _m_cudaStat != cudaSuccess ){\
-    fprintf( stderr , "Error %s at line %d in file %s \n", cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);\
-    exit(1);\
-  }\
-}
+#include "macros.h"
 
 __global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt, int ntot){
   fThread fi = fThread(fIn_d, fOut_d, t, dt);
