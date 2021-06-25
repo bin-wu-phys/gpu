@@ -1,5 +1,5 @@
 Device Number: 0
-  Device name: GeForce RTX 3070 Laptop GPU
+  Device name: NVIDIA GeForce RTX 3070 Laptop GPU
   Compute capability: 8.6
   (SMs, Cuda cores/SM, Cuda cores): (40, 128, 5120)
 
@@ -21,5 +21,5 @@ Device Number: 0
 
 CUDA:
 
-   CUDA Driver Version: 11, 2
+   CUDA Driver Version: 11, 3
    CUDA Runtime Version: 10, 1
