@@ -7,13 +7,12 @@ IBULK = -I../../bulk/
 LBULK = ../../bulk/
 
 SS = StreamNaive
-EXEC = main
 OBJS = ${EXEC}.o ${SS}.o
 
 all: ${EXEC}
 
 ${EXEC}: ${OBJS}
-	${NVCC} ${LFLAGS} ${EXEC} ${OBJS}
+	${NVCC} ${LFLAGS} ${EXEC} ${OBJS} ${LBULK}CompTime.o
 
 ${EXEC}.o: ${EXEC}.cpp ${SS}.cuh
 #	${CXX} -c ${EXEC}.cpp
