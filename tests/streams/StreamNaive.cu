@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 
+#include <omp.h>
+
 #define N 262144
 #include "macros.h"
 #include "StreamNaive.cuh"
@@ -109,6 +111,21 @@ void StreamNaive::runBlock(){
       kernel_2<<<grid, block, 0, _streams[i]>>>(i);
       kernel_3<<<grid, block, 0, _streams[i]>>>(i);
       kernel_4<<<grid, block, 0, _streams[i]>>>(i);
+  }
+}
+
+void StreamNaive::runomp(){
+  dim3 block(1), grid(1);
+
+  omp_set_num_threads(_n);
+#pragma omp parallel
+  {
+    int i = omp_get_thread_num();
+    kernel_1<<<grid, block, 0, _streams[i]>>>(i);
+    kernel_2<<<grid, block, 0, _streams[i]>>>(i);
+    kernel_3<<<grid, block, 0, _streams[i]>>>(i);
+    kernel_4<<<grid, block, 0, _streams[i]>>>(i);
+    cout << "Stream " << i << "has been launched!" << endl;
   }
 }
 

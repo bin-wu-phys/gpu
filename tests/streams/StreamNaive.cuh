@@ -20,4 +20,7 @@ public:
   
   //blocking streams
   void runBlock();
+
+  //openmp
+  void runomp();
 };
