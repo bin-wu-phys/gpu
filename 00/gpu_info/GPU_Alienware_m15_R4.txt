@@ -16,7 +16,7 @@ Device Number: 0
 
   Total number of registers available per block: 65536
   Total number of registers available per SM: 65536
-  Total memory: 7 Gb
+  Total memory: 7.78699 Gb
   Peak Memory Bandwidth 448.064 Gb/s
 
 CUDA:
