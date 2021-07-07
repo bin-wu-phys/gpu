@@ -11,7 +11,8 @@ __device__ fThread::fThread(float* fIn_d, float* fOut_d, float t, float dt, floa
   _fNext = _fIn_d[_idx];
 
   setAlphaS(alphaS);
-  //printf("%d ", _idx);
+  //if(_idx == 0)
+  //  printf("%f", _agg2gg);
 }
 
 __device__ int fThread::getIdx(){
