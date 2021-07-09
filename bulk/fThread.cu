@@ -5,7 +5,7 @@ using namespace std;
 #define Nc 3.0
 #define PI 3.14159265
 
-__device__ fThread::fThread(float* fIn_d, float* fOut_d, float t, float dt, float alphaS = 0.3){
+__device__ fThread::fThread(float* fIn_d, float* fOut_d, float t, float dt, float alphaS){
   _fIn_d = fIn_d; _fOut_d = fOut_d; _t = t; _dt = dt;
   _idx = getIdx();
   _fNext = _fIn_d[_idx];

@@ -12,7 +12,7 @@ private:
   float _alphaS;//alpha strong
   float _agg2gg;//the effective coupling for gg<->gg
 public:
-  __device__ fThread(float *, float *, float, float, float);//intialize *_f, _t, _dt 
+  __device__ fThread(float *, float *, float, float, float = 0.3);//intialize *_f, _t, _dt 
   __device__ int getIdx();//calculate _idx from threadIdx and blockIdx;
   __device__ void update();//replace _f at _idx
   __device__ float getC();//calculate the kernel at i

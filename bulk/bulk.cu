@@ -15,9 +15,11 @@ __global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt, int ntot){
 }
 
 
-bulk::bulk(float* f0_h, float t0, float dt, int ntot){
-  _ntot = ntot; _t = t0; _dt = dt;
-  _nbytes = _ntot*sizeof(int);
+bulk::bulk(float* f0_h, float t0, float dt, int nx, int nphi, int npT, int npz){
+  _nx = nx; _nphi = nphi; _npT = npT; _npz = npz;
+  _ntot = _nx*_nphi*_npT*_npz;
+  _nbytes = _ntot*sizeof(float);
+  _t = t0; _dt = dt;
   //cout << _ntot << ", " <<_nbytes << endl;
   CUDA_STATUS(cudaMalloc((void**) &_fIn_d, _nbytes));
   CUDA_STATUS(cudaMalloc((void**) &_fOut_d, _nbytes));
