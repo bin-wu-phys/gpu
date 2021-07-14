@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-#include "bulk.cuh"
+#include "KinTran.cuh"
 #include "fThread.cuh"
 #include "macros.h"
 
@@ -15,7 +15,7 @@ __global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt, int ntot){
 }
 
 
-bulk::bulk(float* f0_h, float t0, float dt, int nx, int nphi, int npT, int npz){
+KinTran::KinTran(float* f0_h, float t0, float dt, int nx, int nphi, int npT, int npz){
   _nx = nx; _nphi = nphi; _npT = npT; _npz = npz;
   _ntot = _nx*_nphi*_npT*_npz;
   _nbytes = _ntot*sizeof(float);
@@ -26,17 +26,17 @@ bulk::bulk(float* f0_h, float t0, float dt, int nx, int nphi, int npT, int npz){
   CUDA_STATUS(cudaMemcpy(_fIn_d, f0_h, _nbytes, cudaMemcpyHostToDevice));
 }
 
-bulk::~bulk(){
+KinTran::~KinTran(){
   cudaFree((void*) _fIn_d);
   cudaFree((void*) _fOut_d);
 }
 
-void bulk::nextTime(){
+void KinTran::nextTime(){
   int nt = 32*4;
   fGrid<<<(_ntot+nt-1)/nt, nt>>>(_fIn_d, _fOut_d, _t, _dt, _ntot);
   cudaError_t err = cudaGetLastError();
   if (err != cudaSuccess){
-    printf("Kernel call in bulk::nextTime:\n");
+    printf("Kernel call in KinTran::nextTime:\n");
     fprintf( stderr , "Error %s at line %d in file %s \n", cudaGetErrorString(err), __LINE__, __FILE__);
     exit(1);
   }
@@ -45,6 +45,6 @@ void bulk::nextTime(){
   _t += _dt;
 }
 
-void bulk::output(float* f_h){
+void KinTran::output(float* f_h){
   CUDA_STATUS(cudaMemcpy(f_h, _fOut_d, _nbytes, cudaMemcpyDeviceToHost));
 }

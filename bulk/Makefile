@@ -3,11 +3,11 @@ NVCC = nvcc
 CUFLAGS = -dc -o
 LFLAGS = -rdc=true -o
 THREAD = fThread
-BULK = bulk
+KT = KinTran
 LATT = Lattice
 INIT = InitCond
 EXEC = main
-OBJS = ${EXEC}.o ${BULK}.o ${THREAD}.o fCPU.o CompTime.o
+OBJS = ${EXEC}.o ${KT}.o ${THREAD}.o fCPU.o CompTime.o
 OBJSI = init.o InitCond.o Lattice.o 
 
 ${EXEC}: ${OBJS}
@@ -16,11 +16,11 @@ ${EXEC}: ${OBJS}
 init: ${OBJSI}
 	${NVCC} ${LFLAGS} $@ ${OBJSI}
 
-${EXEC}.o: ${EXEC}.cpp ${BULK}.cuh fCPU.h CompTime.h
+${EXEC}.o: ${EXEC}.cpp ${KT}.cuh fCPU.h CompTime.h
 	${CXX} -c ${EXEC}.cpp
 
-${BULK}.o: ${BULK}.cu ${BULK}.cuh
-	${NVCC} ${CUFLAGS} ${BULK}.o ${BULK}.cu
+${KT}.o: ${KT}.cu ${KT}.cuh
+	${NVCC} ${CUFLAGS} ${KT}.o ${KT}.cu
 
 ${LATT}.o: ${LATT}.cu ${LATT}.cuh macros.h
 	${NVCC} ${CUFLAGS} ${LATT}.o ${LATT}.cu

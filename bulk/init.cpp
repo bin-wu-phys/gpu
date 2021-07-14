@@ -1,3 +1,5 @@
+/*This is only used to test the classes InitCond and Lattice.*/
+
 #include <iostream>
 using namespace std;
 

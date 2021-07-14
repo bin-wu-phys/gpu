@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "bulk.cuh"
+#include "KinTran.cuh"
 #include "fCPU.h"
 #include "CompTime.h"
 
@@ -16,7 +16,7 @@ int main(){
 
 
   cout << "GPU:" << endl;
-  bulk bk(f0, t0, dt, nx, nphi, npT, npz);
+  KinTran bk(f0, t0, dt, nx, nphi, npT, npz);
 
   CompTime stopwatch;
 

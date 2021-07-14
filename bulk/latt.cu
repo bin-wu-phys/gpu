@@ -1,3 +1,4 @@
+/*This is used to test class Lattice.*/
 #include "Lattice.cu"
 #define NR 32
 #define NPHI 21
