@@ -39,6 +39,30 @@ int main(){
   Lattice latt(NR, NPHI, NP, NV, 3.0f, 3.0f, 15.0f);
   latt.toConstMem(rc, phic, pc, vc);
 
+  cout << "r = ";
+  for(int i=0; i< NR; i++){
+    cout << latt.get_r(i) << " ";
+  }
+  cout << endl;
+
+  cout << "phi = ";
+  for(int i=0; i< NPHI; i++){
+    cout << latt.get_phit(i) << " ";
+  }
+  cout << endl;
+  
+  cout << "p = ";
+  for(int i=0; i< NP; i++){
+    cout << latt.get_pt(i) << " ";
+  }
+  cout << endl;
+  
+  cout << "vz = ";
+  for(int i=0; i< NV; i++){
+    cout << latt.get_vzt(i) << " ";
+  }
+  cout << endl;
+
   read<<<1,1>>>();
   CUDA_STATUS(cudaDeviceReset()); 
   return 0;

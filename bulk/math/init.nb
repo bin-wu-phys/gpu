@@ -1,0 +1,127 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3254,        119]
+NotebookOptionsPosition[      2663,         93]
+NotebookOutlinePosition[      2999,        108]
+CellTagsIndexPosition[      2956,        105]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Fp", "[", 
+   RowBox[{"p_", ",", "Dp_"}], "]"}], ":=", 
+  FractionBox["1", 
+   RowBox[{
+    RowBox[{"Exp", "[", 
+     FractionBox[
+      RowBox[{"(", 
+       RowBox[{"p", "-", "1"}], ")"}], "Dp"], "]"}], "+", "1"}]]}]], "Input",
+ CellChangeTimes->{{3.835281857216576*^9, 3.8352818824526176`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Fpnorm", "[", "Dp_", "]"}], "=", 
+  RowBox[{"Assuming", "[", 
+   RowBox[{
+    RowBox[{"Dp", ">", "0"}], ",", 
+    RowBox[{
+     RowBox[{"Integrate", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Fp", "[", 
+         RowBox[{"p", ",", "Dp"}], "]"}], " ", 
+        RowBox[{"p", "^", "2"}]}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"p", ",", "0", ",", "Infinity"}], "}"}]}], "]"}], "//", 
+     "FullSimplify"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.835281886703199*^9, 3.8352819436118593`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", "2"}], " ", 
+  SuperscriptBox["Dp", "3"], " ", 
+  RowBox[{"PolyLog", "[", 
+   RowBox[{"3", ",", 
+    RowBox[{"-", 
+     SuperscriptBox["\[ExponentialE]", 
+      FractionBox["1", "Dp"]]}]}], "]"}]}]], "Output",
+ CellChangeTimes->{{3.835281905909101*^9, 3.835281911783121*^9}, 
+   3.8352819441806393`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Fpnorm", "[", "0.1", "]"}]], "Input"],
+
+Cell[BoxData["0.36623210546964224`"], "Output",
+ CellChangeTimes->{3.835282889657258*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"1", "/", 
+    RowBox[{"Fpnorm", "[", "0.1", "]"}]}], ",", "8"}], "]"}]], "Input",
+ CellChangeTimes->{{3.835281978728998*^9, 3.835281983738365*^9}, {
+  3.835282035191416*^9, 3.835282043117856*^9}, {3.835282710934194*^9, 
+  3.83528271952564*^9}, {3.835282840184752*^9, 3.835282856558983*^9}}],
+
+Cell[BoxData["2.7305088359679384`"], "Output",
+ CellChangeTimes->{
+  3.8352819841411533`*^9, {3.835282038098958*^9, 3.835282043643244*^9}, 
+   3.8352827242851677`*^9, {3.8352828460415382`*^9, 3.835282857148139*^9}}]
+}, Open  ]],
+
+Cell[BoxData["2.7305088359679384`"], "Input"]
+},
+WindowSize->{808, 911},
+WindowMargins->{{Automatic, -35}, {-87, Automatic}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 331, 10, 75, "Input"],
+Cell[CellGroupData[{
+Cell[914, 34, 548, 16, 59, "Input"],
+Cell[1465, 52, 342, 10, 52, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1844, 67, 61, 1, 32, "Input"],
+Cell[1908, 70, 89, 1, 65, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2034, 76, 347, 7, 32, "Input"],
+Cell[2384, 85, 215, 3, 32, "Output"]
+}, Open  ]],
+Cell[2614, 91, 45, 0, 32, "Input"]
+}
+]
+*)
+

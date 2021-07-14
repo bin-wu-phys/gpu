@@ -3,7 +3,6 @@
 using namespace std;
 
 #include "Lattice.cuh"
-#define PI 3.14159265
 #include "macros.h"
 
 Lattice::Lattice(int nr, int nphit, int npt, int nvzt, float rMax = 3.0f, float pMax = 3.0f, float vMax = 10.0f){
@@ -58,6 +57,67 @@ Lattice::~Lattice(){
   //The standard form of operator delete[] will take only one parameter.
   delete [] _r; delete [] _phit; delete [] _pt; delete [] _vzt;
 }
+
+int Lattice::get_nr(){
+  return _nr;
+}
+
+int Lattice::get_nphit(){
+  return _nphit;
+}
+
+int Lattice::get_npt(){
+  return _npt;
+}
+
+int Lattice::get_nvzt(){
+  return _nvzt;
+}
+
+float Lattice::get_r(int i){
+  if(i>=0 && i<_nr){
+    return _r[i];
+  }
+  else{
+    cout << "Error at line " << __LINE__ << " in file " << __FILE__ << ":\n";
+    cout << "The index of Lattice::_r has to be in the range [0, " << _nr -1 << "]." << endl;
+    exit(EXIT_FAILURE);
+  }
+}
+
+float Lattice::get_phit(int i){
+  if(i>=0 && i<_nphit){
+    return _phit[i];
+  }
+  else{
+    cout << "Error at line " << __LINE__ << " in file " << __FILE__ << ":\n";
+    cout << "The index of Lattice::_phit has to be in the range [0, " << _nphit -1 << "]." << endl;
+    exit(EXIT_FAILURE);
+  }
+}
+
+float Lattice::get_pt(int i){
+  if(i>=0 && i<_npt){
+    return _pt[i];
+  }
+  else{
+    cout << "Error at line " << __LINE__ << " in file " << __FILE__ << ":\n";
+    cout << "The index of Lattice::_pt has to be in the range [0, " << _npt -1 << "]." << endl;
+    exit(EXIT_FAILURE);
+  }
+}
+
+float Lattice::get_vzt(int i){
+  if(i>=0 && i<_nvzt){
+    return _vzt[i];
+  }
+  else{
+    cout << "Error at line " << __LINE__ << " in file " << __FILE__ << ":\n";
+    cout << "The index of Lattice::_vzt has to be in the range [0, " << _nvzt -1 << "]." << endl;
+    exit(EXIT_FAILURE);
+  }
+}
+
 
 void Lattice::toConstMem(const void* rc, const void* phitc, const void* ptc, const void* vztc){
   CUDA_STATUS(cudaMemcpyToSymbol(rc, _r, _nr*sizeof(float)));

@@ -5,11 +5,16 @@ LFLAGS = -rdc=true -o
 THREAD = fThread
 BULK = bulk
 LATT = Lattice
+INIT = InitCond
 EXEC = main
 OBJS = ${EXEC}.o ${BULK}.o ${THREAD}.o fCPU.o CompTime.o
+OBJSI = init.o InitCond.o Lattice.o 
 
 ${EXEC}: ${OBJS}
 	${NVCC} ${LFLAGS} ${EXEC} ${OBJS}
+
+init: ${OBJSI}
+	${NVCC} ${LFLAGS} $@ ${OBJSI}
 
 ${EXEC}.o: ${EXEC}.cpp ${BULK}.cuh fCPU.h CompTime.h
 	${CXX} -c ${EXEC}.cpp
@@ -17,8 +22,11 @@ ${EXEC}.o: ${EXEC}.cpp ${BULK}.cuh fCPU.h CompTime.h
 ${BULK}.o: ${BULK}.cu ${BULK}.cuh
 	${NVCC} ${CUFLAGS} ${BULK}.o ${BULK}.cu
 
-${LATT}.o: ${LATT}.cu ${LATT}.cuh
+${LATT}.o: ${LATT}.cu ${LATT}.cuh macros.h
 	${NVCC} ${CUFLAGS} ${LATT}.o ${LATT}.cu
+
+${INIT}.o: ${INIT}.cu ${INIT}.cuh macros.h
+	${NVCC} ${CUFLAGS} ${INIT}.o ${INIT}.cu
 
 ${THREAD}.o: ${THREAD}.cu ${THREAD}.cuh
 	${NVCC} ${CUFLAGS} ${THREAD}.o ${THREAD}.cu

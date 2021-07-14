@@ -11,4 +11,13 @@ class Lattice{
   ~Lattice();
 
   void toConstMem(const void*, const void*, const void*, const void*);
+
+  int get_nr();
+  int get_nphit();
+  int get_npt();
+  int get_nvzt();
+  float get_r(int);
+  float get_phit(int);
+  float get_pt(int);
+  float get_vzt(int);
 };
