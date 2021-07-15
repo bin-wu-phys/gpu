@@ -15,6 +15,14 @@ Lattice::Lattice(int nr, int nphit, int npt, int nvzt, float rMax = 3.0f, float 
   calc();
 }
 
+void Lattice::set_t0(float t0){
+  _t0 = t0;
+}
+
+float Lattice::get_t0(){
+  return _t0;
+}
+
 void Lattice::calc(){
   float dl = _rMax/((float)(_nr - 1.0));
 

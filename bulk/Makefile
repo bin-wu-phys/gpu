@@ -7,14 +7,13 @@ KT = KinTran
 LATT = Lattice
 INIT = InitCond
 EXEC = main
+COOR = Coordinates
+
 OBJS = ${EXEC}.o ${KT}.o ${THREAD}.o fCPU.o CompTime.o
 OBJSI = init.o InitCond.o Lattice.o 
 
 ${EXEC}: ${OBJS}
 	${NVCC} ${LFLAGS} ${EXEC} ${OBJS}
-
-init: ${OBJSI}
-	${NVCC} ${LFLAGS} $@ ${OBJSI}
 
 ${EXEC}.o: ${EXEC}.cpp ${KT}.cuh fCPU.h CompTime.h
 	${CXX} -c ${EXEC}.cpp
@@ -31,7 +30,21 @@ ${INIT}.o: ${INIT}.cu ${INIT}.cuh macros.h
 ${THREAD}.o: ${THREAD}.cu ${THREAD}.cuh
 	${NVCC} ${CUFLAGS} ${THREAD}.o ${THREAD}.cu
 
+${COOR}.o: ${COOR}.cu ${COOR}.cuh
+	${NVCC} ${CUFLAGS} $@ $<
+
 #testing
+
+## test InitCond and Lattice
+init: ${OBJSI}
+	${NVCC} ${LFLAGS} $@ ${OBJSI}
+
+## test Coordinates
+coor: coor.o ${COOR}.o
+	${NVCC} ${LFLAGS} $@ $^
+
+coor.o: coor.cu ${COOR}.cuh
+	${NVCC} ${CUFLAGS} $@ $<
 
 test.o: test.cu fThread.cuh
 	${NVCC} ${CUFLAGS} test.o test.cu
