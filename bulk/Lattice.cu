@@ -26,7 +26,7 @@ float Lattice::get_t0(){
 void Lattice::calc(){
   float dl = _rMax/((float)(_nr - 1.0));
 
-  for(int i=0; i<_nr; i++){
+  for(int i=1; i<=_nr; i++){
     _r[i] = dl*i;
     //cout << _r[i] << " ";
   }

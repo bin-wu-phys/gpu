@@ -21,7 +21,7 @@ int main(){
   CompTime stopwatch;
 
   //cout << "Entering nextTime:\n";
-  bk.nextTime();
+  //bk.nextTime();
 
   cout << "Computation time: " << stopwatch.getTime() << " s." << endl;
   
