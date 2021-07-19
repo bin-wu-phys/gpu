@@ -5,7 +5,7 @@ class Lattice{
   float *_r, *_phit, *_pt, *_vzt;//grids of r, \tilde{phi}_r, \tilde{p} and \tilde{v}_z
   float _t0;//The relation of the ordinary coordinates to these coordinates depends on _t0
  public:
-  Lattice(int, int, int, int, float, float, float);
+  Lattice(int, int, int, int, float = 3.0f, float = 3.0f, float = 10.0f);
   ~Lattice();
   void calc();
 
@@ -21,9 +21,9 @@ class Lattice{
   float get_pt(int);
   float get_vzt(int);
 
-  float get_phi(float t, );
-  float get_p(float t);
-  float get_vz(float t, float vzt);
+  //float get_phi(float t, );
+  //float get_p(float t);
+  //float get_vz(float t, float vzt);
 
   void toConstMem(const void*, const void*, const void*, const void*);
 };

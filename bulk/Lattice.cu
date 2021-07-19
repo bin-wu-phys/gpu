@@ -5,7 +5,7 @@ using namespace std;
 #include "Lattice.cuh"
 #include "macros.h"
 
-Lattice::Lattice(int nr, int nphit, int npt, int nvzt, float rMax = 3.0f, float pMax = 3.0f, float vMax = 10.0f){
+Lattice::Lattice(int nr, int nphit, int npt, int nvzt, float rMax, float pMax, float vMax){
   _nr = nr; _nphit = nphit; _npt = npt; _nvzt = nvzt;
   _rMax = rMax; _pMax = pMax; _vMax = vMax;
   

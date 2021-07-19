@@ -15,20 +15,20 @@ __global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt, int ntot){
 }
 
 
-KinTran::KinTran(float* f0_h, float t0, float dt, int nx, int nphi, int npT, int npz){
-  _nx = nx; _nphi = nphi; _npT = npT; _npz = npz;
-  _ntot = _nx*_nphi*_npT*_npz;
+KinTran::KinTran(InitCond* init, float dt){
+  _init = init;
+  _ntot = _init->_latt->get_nr()*_init->_latt->get_nphit()*_init->_latt->get_npt()*_init->_latt->get_nvzt();
   _nbytes = _ntot*sizeof(float);
-  _t = t0; _dt = dt;
+  _t = _init->get_tInit(); _dt = dt;
   //cout << _ntot << ", " <<_nbytes << endl;
-  CUDA_STATUS(cudaMalloc((void**) &_fIn_d, _nbytes));
-  CUDA_STATUS(cudaMalloc((void**) &_fOut_d, _nbytes));
-  CUDA_STATUS(cudaMemcpy(_fIn_d, f0_h, _nbytes, cudaMemcpyHostToDevice));
+  CUDA_STATUS(cudaMalloc((void**) &_f, _nbytes));
+  CUDA_STATUS(cudaMalloc((void**) &_fPre, _nbytes));
+  _init->toGlobalMem(_fPre);
 }
 
 KinTran::~KinTran(){
-  cudaFree((void*) _fIn_d);
-  cudaFree((void*) _fOut_d);
+  cudaFree((void*) _f);
+  cudaFree((void*) _fPre);
 }
 
 void KinTran::nextTime(){
@@ -46,5 +46,5 @@ void KinTran::nextTime(){
 }
 
 void KinTran::output(float* f_h){
-  CUDA_STATUS(cudaMemcpy(f_h, _fOut_d, _nbytes, cudaMemcpyDeviceToHost));
+  CUDA_STATUS(cudaMemcpy(f_h, _f, _nbytes, cudaMemcpyDeviceToHost));
 }

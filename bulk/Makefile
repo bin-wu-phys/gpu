@@ -15,7 +15,7 @@ OBJSI = init.o InitCond.o Lattice.o
 ${EXEC}: ${OBJS}
 	${NVCC} ${LFLAGS} ${EXEC} ${OBJS}
 
-${EXEC}.o: ${EXEC}.cpp ${KT}.cuh fCPU.h CompTime.h
+${EXEC}.o: ${EXEC}.cpp ${KT}.cuh  ${INIT}.cuh ${LATT}.cuh fCPU.h CompTime.h
 	${CXX} -c ${EXEC}.cpp
 
 ${KT}.o: ${KT}.cu ${KT}.cuh

@@ -5,8 +5,8 @@ using namespace std;
 #include "InitCond.cuh"
 #include "macros.h"
 
-InitCond::InitCond(float t0, Lattice* latt, float n0){
-  _t0 = t0; _latt = latt; _n0 = 0.5*n0/(PI*PI);
+InitCond::InitCond(float tInit, Lattice* latt, float n0){
+  _tInit = tInit; _latt = latt; _n0 = 0.5*n0/(PI*PI);
   _f0 = new float[_latt->get_nr()*_latt->get_nphit()*_latt->get_npt()*_latt->get_nvzt()];
 
   calc();
@@ -48,4 +48,8 @@ void InitCond::calc(){
 void InitCond::toGlobalMem(float* f0_d){
   size_t nBytes = _latt->get_nr()*_latt->get_nphit()*_latt->get_npt()*_latt->get_nvzt()*sizeof(float);
   CUDA_STATUS(cudaMemcpy(f0_d, _f0, nBytes, cudaMemcpyHostToDevice));
+}
+
+float InitCond::get_tInit(){
+  return _tInit;
 }
