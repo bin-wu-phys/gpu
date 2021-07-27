@@ -133,4 +133,3 @@ void Lattice::toConstMem(const void* rc, const void* phitc, const void* ptc, con
   CUDA_STATUS(cudaMemcpyToSymbol(ptc, _pt, _npt*sizeof(float)));
   CUDA_STATUS(cudaMemcpyToSymbol(vztc, _vzt, _nvzt*sizeof(float)));
 }
-

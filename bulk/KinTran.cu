@@ -6,24 +6,26 @@ using namespace std;
 #include "fThread.cuh"
 #include "macros.h"
 
-__global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt, int ntot){
-  fThread fi = fThread(fIn_d, fOut_d, t, dt);
+__global__ void fGrid(float* fIn_d, float *fOut_d, float t, float dt, KernelParas *kps_all){
+  KernelParas kps;
+  kps._f_r = fIn_d + blockIdx.x*kps_all->_nphit*kps_all->_npt*kps_all->_nvzt;
+  kps._nphit = kps_all->_nphit; kps._npt = kps_all->_npt; kps._nvzt = kps_all->_nvzt;
+  fThread fi = fThread(fIn_d, fOut_d, t, dt, &kps);
   //fi.print();
-  fi.setntot(ntot);
   fi.nextTime();
   fi.update();
 }
 
 
 KinTran::KinTran(InitCond* init, float dt){
-  _init = init;
-  _ntot = _init->_latt->get_nr()*_init->_latt->get_nphit()*_init->_latt->get_npt()*_init->_latt->get_nvzt();
+  _latt = init-> _latt;
+  _ntot = _latt->get_nr()*_latt->get_nphit()*_latt->get_npt()*_latt->get_nvzt();
   _nbytes = _ntot*sizeof(float);
-  _t = _init->get_tInit(); _dt = dt;
+  _t = init->get_tInit(); _dt = dt;
   //cout << _ntot << ", " <<_nbytes << endl;
   CUDA_STATUS(cudaMalloc((void**) &_f, _nbytes));
   CUDA_STATUS(cudaMalloc((void**) &_fPre, _nbytes));
-  _init->toGlobalMem(_fPre);
+  init->toGlobalMem(_fPre);
 }
 
 KinTran::~KinTran(){
@@ -32,8 +34,11 @@ KinTran::~KinTran(){
 }
 
 void KinTran::nextTime(){
-  int nt = 32*4;
-  fGrid<<<(_ntot+nt-1)/nt, nt>>>(_fIn_d, _fOut_d, _t, _dt, _ntot);
+  KernelParas kps;
+  kps._f_r = _f; kps._nphit = _latt->get_nphit();
+  kps._npt = _latt->get_npt(); kps._nvzt = _latt->get_nvzt();
+  
+  fGrid<<<_latt->get_nr(), dim3(_latt->get_nphit(), _latt->get_npt(), _latt->get_nvzt())>>>(_f, _fPre, _t, _dt, &kps);
   cudaError_t err = cudaGetLastError();
   if (err != cudaSuccess){
     printf("Kernel call in KinTran::nextTime:\n");

@@ -2,17 +2,19 @@
 using namespace std;
 
 #include "fThread.cuh"
-#define Nc 3.0
-#define PI 3.14159265
 
-__device__ fThread::fThread(float* fIn_d, float* fOut_d, float t, float dt, float alphaS){
+__device__ fThread::fThread(float* fIn_d, float* fOut_d, float t, float dt, KernelParas *kps, float alphaS){
   _fIn_d = fIn_d; _fOut_d = fOut_d; _t = t; _dt = dt;
   _idx = getIdx();
   _fNext = _fIn_d[_idx];
 
-  setAlphaS(alphaS);
+  _kern = new Kernel(kps, alphaS);
   //if(_idx == 0)
   //  printf("%f", _agg2gg);
+}
+
+__device__ fThread::~fThread(){
+  delete _kern;
 }
 
 __device__ int fThread::getIdx(){
@@ -23,19 +25,8 @@ __device__ void fThread::update(){
   _fOut_d[_idx] = _fNext;
 }
 
-__device__ float fThread::getC(){
-  float c = 0.0;
-  for(int i=0;i<_ntot;i++)
-    c += _fIn_d[i]*_fIn_d[i]*_fIn_d[i]*_fIn_d[i];
-  return c*_idx;
-}
-
-__device__ float fThread::Mgg2gg(float s, float t, float u){
-  return _agg2gg*(3.0 - s*u/(t*t) - s*t/(u*u) - t*u/(s*s));
-}
-
 __device__ void fThread::nextTime(){
-  _fNext = _fIn_d[_idx] + _dt* getC();
+  _fNext = _fIn_d[_idx] + _dt* _kern->Cgg2gg();
 }
 
 __device__
@@ -45,8 +36,4 @@ void fThread::print(){
 
 __device__ void fThread::setntot(int ntot){
   _ntot = ntot;
-}
-
-__device__ void fThread::setAlphaS(float alphaS){
-  _alphaS = alphaS; _agg2gg = 128.0*PI*PI*_alphaS*_alphaS*Nc*Nc;
 }

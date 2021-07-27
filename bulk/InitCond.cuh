@@ -3,8 +3,8 @@
 class InitCond{
 private:
   float _tInit;//Here, _tInit is not necessarily the same as _t0.
-  float _n0;//initial number density at _r=0
-  float * _f0;
+  float _nInit;//initial number density at _tInit
+  float * _fInit;
 public:
   Lattice *_latt;
   InitCond(float, Lattice*, float = 3.0);

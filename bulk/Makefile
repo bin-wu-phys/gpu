@@ -8,8 +8,9 @@ LATT = Lattice
 INIT = InitCond
 EXEC = main
 COOR = Coordinates
+KERN = Kernel
 
-OBJS = ${EXEC}.o ${KT}.o ${THREAD}.o ${LATT}.o ${INIT}.o fCPU.o CompTime.o
+OBJS = ${EXEC}.o ${KT}.o ${THREAD}.o ${LATT}.o ${INIT}.o fCPU.o CompTime.o ${KERN}.o
 OBJSI = init.o InitCond.o Lattice.o 
 
 ${EXEC}: ${OBJS}
@@ -33,6 +34,9 @@ ${THREAD}.o: ${THREAD}.cu ${THREAD}.cuh
 ${COOR}.o: ${COOR}.cu ${COOR}.cuh
 	${NVCC} ${CUFLAGS} $@ $<
 
+${KERN}.o: ${KERN}.cu ${KERN}.cuh
+	${NVCC} ${CUFLAGS} $@ $<
+
 #testing
 
 ## test InitCond and Lattice
@@ -45,12 +49,6 @@ coor: coor.o ${COOR}.o
 
 coor.o: coor.cu ${COOR}.cuh
 	${NVCC} ${CUFLAGS} $@ $<
-
-test.o: test.cu fThread.cuh
-	${NVCC} ${CUFLAGS} test.o test.cu
-
-test: test.o fThread.o
-	${NVCC} ${LFLAGS} test test.o fThread.o
 
 fCPU.o: fCPU.cpp fCPU.h
 	${CXX} -c fCPU.cpp

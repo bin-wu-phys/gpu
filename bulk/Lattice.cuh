@@ -26,4 +26,5 @@ class Lattice{
   //float get_vz(float t, float vzt);
 
   void toConstMem(const void*, const void*, const void*, const void*);
+
 };

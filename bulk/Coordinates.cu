@@ -1,12 +1,16 @@
 #include "Coordinates.cuh"
 
 
+__device__ __host__ Coordinates::Coordinates(float t0){
+  _t0 = t0; _t = _t0;
+}
+
 __device__ __host__ Coordinates::Coordinates(float t0, float t){
   _t0 = t0; _t = t;
 }
 
-__device__ __host__ void Coordinates::setTimes(float t0, float t){
-  _t0 = t0; _t = t;
+__device__ __host__ void Coordinates::set_t(float t){
+  _t = t;
 }
 
 __device__ __host__ void Coordinates::calc(float r, float phirt, float pt, float vzt){

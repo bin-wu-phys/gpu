@@ -5,15 +5,15 @@ using namespace std;
 #include "InitCond.cuh"
 #include "macros.h"
 
-InitCond::InitCond(float tInit, Lattice* latt, float n0){
-  _tInit = tInit; _latt = latt; _n0 = 0.5*n0/(PI*PI);
-  _f0 = new float[_latt->get_nr()*_latt->get_nphit()*_latt->get_npt()*_latt->get_nvzt()];
+InitCond::InitCond(float tInit, Lattice* latt, float nInit){
+  _tInit = tInit; _latt = latt; _nInit = 0.5*nInit/(PI*PI);
+  _fInit = new float[_latt->get_nr()*_latt->get_nphit()*_latt->get_npt()*_latt->get_nvzt()];
 
   calc();
 }
 
 InitCond::~InitCond(){
-  delete [] _f0;
+  delete [] _fInit;
 }
 
 float InitCond::Fbg(float r, float phir){
@@ -38,16 +38,16 @@ void InitCond::calc(){
 	idx2 = _latt->get_npt()*idx1 + ip;
 	for(int iv=0; iv<_latt->get_nvzt(); iv++){
 	  idx = _latt->get_nvzt()*idx2 + iv;
-	  _f0[idx] = _n0*Fbg(_latt->get_r(ir), _latt->get_phit(iphi))*Fp(_latt->get_pt(ip))*Fv(_latt->get_vzt(iv));
+	  _fInit[idx] = _nInit*Fbg(_latt->get_r(ir), _latt->get_phit(iphi))*Fp(_latt->get_pt(ip))*Fv(_latt->get_vzt(iv));
 	}
       }
     }
   }
 }
 
-void InitCond::toGlobalMem(float* f0_d){
+void InitCond::toGlobalMem(float* fInit_d){
   size_t nBytes = _latt->get_nr()*_latt->get_nphit()*_latt->get_npt()*_latt->get_nvzt()*sizeof(float);
-  CUDA_STATUS(cudaMemcpy(f0_d, _f0, nBytes, cudaMemcpyHostToDevice));
+  CUDA_STATUS(cudaMemcpy(fInit_d, _fInit, nBytes, cudaMemcpyHostToDevice));
 }
 
 float InitCond::get_tInit(){

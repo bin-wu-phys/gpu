@@ -2,12 +2,11 @@
 
 class KinTran{
 private:
-  InitCond *_init;
   float *_f, *_fPre;//pointers to global memory at the current and previous time steps, respectively.
-  float *_fIn_d, *_fOut_d;//pointer to gloabl memory on device
   float _t, _dt;//time and time step
   int _ntot;//number of grids
   size_t _nbytes;
+  Lattice *_latt;
 public:
   KinTran(InitCond*, float);
   ~KinTran();
